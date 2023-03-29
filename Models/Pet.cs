@@ -5,8 +5,8 @@ using System;
 
 namespace pet_hotel
 {
-    public enum PetBreedType { }
-    public enum PetColorType { }
+    public enum PetBreedType { Shepherd, Poodle, Beagle, Bulldog, Terrier, Boxer, Labrador, Retriever }
+    public enum PetColorType { White, Black, Golden, Tricolor, Spotted }
     public class Pet
     {
         public int id { get; set; }
@@ -14,8 +14,17 @@ namespace pet_hotel
         [Required]
         public string name { get; set; }
 
-        // [Required]
-        // //breed, color, checked in
-        // public string 
+        [Required]
+        public PetBreedType breed { get; set; }
+
+        [Required]
+        public PetColorType color { get; set; }
+
+        public string? checkedInAt { get; set; }
+
+        [ForeignKey("petOwner")]
+        public int petOwnerid { get; set; }
+
+        public PetOwner petOwner { get; set; }
     }
 }
