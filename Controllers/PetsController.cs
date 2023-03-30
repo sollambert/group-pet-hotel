@@ -55,7 +55,7 @@ namespace pet_hotel.Controllers
             pet.id = id;
             _context.Update(pet);
             _context.SaveChanges();
-            return NoContent();
+            return Ok();
         }
 
         [HttpPut("{id}/checkin")]
@@ -64,7 +64,7 @@ namespace pet_hotel.Controllers
             pet.checkedInAt = DateTime.Now.ToString();
             _context.Update(pet);
             _context.SaveChanges();
-            return NoContent();
+            return Ok();
         }
 
         [HttpPut("{id}/checkout")]
@@ -73,7 +73,7 @@ namespace pet_hotel.Controllers
             pet.checkedInAt = null;
             _context.Update(pet);
             _context.SaveChanges();
-            return NoContent();
+            return Ok();
         }
 
         [HttpDelete("{id}")]
