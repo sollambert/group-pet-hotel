@@ -40,7 +40,8 @@ namespace pet_hotel.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteOwner(int id) {
+        public IActionResult DeleteOwner(int id)
+        {
             PetOwner petOwner = _context.PetOwners.Find(id);
 
             _context.PetOwners.Remove(petOwner);
@@ -50,7 +51,8 @@ namespace pet_hotel.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateOwner(int id, PetOwner owner){
+        public IActionResult UpdateOwner(int id, PetOwner owner)
+        {
             owner.id = id;
 
             _context.Update(owner);
