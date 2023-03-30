@@ -29,7 +29,6 @@ namespace pet_hotel.Controllers
         }
 
         [HttpGet("{id}")]
-
         public Pet GetPetById(int id)
         {
             return _context.Pets.Find(id);
@@ -38,12 +37,11 @@ namespace pet_hotel.Controllers
         [HttpPost]
         public IActionResult PostPet(Pet pet)
         {
-            Console.WriteLine("POST PET: " + pet.ToString());
+            pet.petOwner = _context.PetOwners.Find(pet.petOwnerid);
             _context.Add(pet);
             _context.SaveChanges();
 
             return CreatedAtAction(nameof(GetPetById), new { id = pet.id }, pet);
-            // return Created(nameof(GetPetById), pet);
         }
 
         // [HttpGet]

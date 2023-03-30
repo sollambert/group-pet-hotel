@@ -5,7 +5,10 @@ using System;
 
 namespace pet_hotel
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PetBreedType { Shepherd, Poodle, Beagle, Bulldog, Terrier, Boxer, Labrador, Retriever }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PetColorType { White, Black, Golden, Tricolor, Spotted }
     public class Pet
     {
