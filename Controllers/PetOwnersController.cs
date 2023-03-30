@@ -51,13 +51,13 @@ namespace pet_hotel.Controllers
         }
 
         [HttpPut("{id}")]
-        public PetOwner UpdateOwner(int id, PetOwner owner)
+        public IActionResult UpdateOwner(int id, PetOwner owner)
         {
             owner.id = id;
 
             _context.Update(owner);
             _context.SaveChanges();
-            return owner;
+            return Ok();
         }
     }
 }
