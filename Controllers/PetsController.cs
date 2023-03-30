@@ -36,12 +36,12 @@ namespace pet_hotel.Controllers
         }
 
         [HttpPost]
-        public Pet PostPet(Pet pet)
+        public IActionResult PostPet(Pet pet)
         {
             _context.Add(pet);
             _context.SaveChanges();
 
-            return pet;
+            return CreatedAtAction(nameof(GetPetById), new { id = pet.id }, pet);
         }
 
         // [HttpGet]
