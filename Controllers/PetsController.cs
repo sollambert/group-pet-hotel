@@ -15,15 +15,33 @@ namespace pet_hotel.Controllers
     public class PetsController : ControllerBase
     {
         private readonly ApplicationContext _context;
-        public PetsController(ApplicationContext context) {
+        public PetsController(ApplicationContext context)
+        {
             _context = context;
         }
 
         // This is just a stub for GET / to prevent any weird frontend errors that 
         // occur when the route is missing in this controller
         [HttpGet]
-        public IEnumerable<Pet> GetPets() {
-            return new List<Pet>();
+        public IEnumerable<Pet> GetAllPets()
+        {
+            return _context.Pets.Include(pet => pet.petOwner);
+        }
+
+        [HttpGet("{id}")]
+
+        public Pet GetPetById(int id)
+        {
+            return _context.Pets.Find(id);
+        }
+
+        [HttpPost]
+        public Pet PostPet(Pet pet)
+        {
+            _context.Add(pet);
+            _context.SaveChanges();
+
+            return pet;
         }
 
         // [HttpGet]
@@ -51,7 +69,8 @@ namespace pet_hotel.Controllers
         // }
 
         [HttpPut("{id}")]
-        public IActionResult UpdatePet(int id, Pet pet) {
+        public IActionResult UpdatePet(int id, Pet pet)
+        {
             pet.id = id;
             _context.Update(pet);
             _context.SaveChanges();
@@ -59,7 +78,8 @@ namespace pet_hotel.Controllers
         }
 
         [HttpPut("{id}/checkin")]
-        public IActionResult CheckIn(int id) {
+        public IActionResult CheckIn(int id)
+        {
             Pet pet = _context.Pets.Find(id);
             pet.checkedInAt = DateTime.Now.ToString();
             _context.Update(pet);
@@ -68,7 +88,8 @@ namespace pet_hotel.Controllers
         }
 
         [HttpPut("{id}/checkout")]
-        public IActionResult CheckOut(int id) {
+        public IActionResult CheckOut(int id)
+        {
             Pet pet = _context.Pets.Find(id);
             pet.checkedInAt = null;
             _context.Update(pet);
@@ -77,7 +98,8 @@ namespace pet_hotel.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeletePet(int id) {
+        public IActionResult DeletePet(int id)
+        {
             _context.Pets.Remove(_context.Pets.Find(id));
             _context.SaveChanges();
             return NoContent();
