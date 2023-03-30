@@ -57,7 +57,7 @@ namespace pet_hotel.Controllers
 
             _context.Update(owner);
             _context.SaveChanges();
-            return Ok();
+            return Ok(owner);
         }
     }
 }
