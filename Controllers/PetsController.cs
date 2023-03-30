@@ -29,7 +29,6 @@ namespace pet_hotel.Controllers
         }
 
         [HttpGet("{id}")]
-
         public Pet GetPetById(int id)
         {
             return _context.Pets.Find(id);
@@ -38,6 +37,7 @@ namespace pet_hotel.Controllers
         [HttpPost]
         public IActionResult PostPet(Pet pet)
         {
+            pet.petOwner = _context.PetOwners.Find(pet.petOwnerid);
             _context.Add(pet);
             _context.SaveChanges();
 
@@ -69,12 +69,12 @@ namespace pet_hotel.Controllers
         // }
 
         [HttpPut("{id}")]
-        public IActionResult UpdatePet(int id, Pet pet)
+        public IActionResult UpdatePet(Pet pet, int id)
         {
             pet.id = id;
             _context.Update(pet);
             _context.SaveChanges();
-            return NoContent();
+            return Ok(pet);
         }
 
         [HttpPut("{id}/checkin")]
@@ -84,7 +84,7 @@ namespace pet_hotel.Controllers
             pet.checkedInAt = DateTime.Now.ToString();
             _context.Update(pet);
             _context.SaveChanges();
-            return NoContent();
+            return Ok(pet);
         }
 
         [HttpPut("{id}/checkout")]
@@ -94,13 +94,14 @@ namespace pet_hotel.Controllers
             pet.checkedInAt = null;
             _context.Update(pet);
             _context.SaveChanges();
-            return NoContent();
+            return Ok(pet);
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeletePet(int id)
         {
-            _context.Pets.Remove(_context.Pets.Find(id));
+            Pet pet = _context.Pets.Find(id);
+            _context.Pets.Remove(pet);
             _context.SaveChanges();
             return NoContent();
         }
